@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "NewInvoice";
+    Layout = "~/Views/Shared/Invoice_Layout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        FetchCustomers();
+        FetchItems();
+        $("#dditem").change(function () {
+            FetchItemData();
+        })
+        $("#txtqty").change(function () {
+            Calculate();
+        })
+    })
+    function FetchCustomers() {
+        $.ajax({
+            url: '/Customer/GetCustomers',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                //console.log(resp)
+                $.each(resp, function (i, d) {
+                    $("#ddcustomer").append("<option value="+d.customer_id+" >"+d.customer_name+"</option>")
+                })
+            }
+        })
+    }
+    function FetchItems() {
+        $.ajax({
+            url: '/Item/GetItems',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                //console.log(resp);
+                $.each(resp, function (i, d) {
+                    $("#dditem").append("<option value="+d.product_id+" >"+d.product_name+"</option>")
+                })
+            }
+        })
+    }
+    function FetchItemData()
+    {
+        var id = $("#dditem").val();
+        $.ajax({
+            url: '/Item/GetItem/' + id,
+            method: 'get',
+            contentType: 'application/json',
+            success: function (resp) {
+                 console.log(resp);
+                $("#txtrate").val(resp.rate);
+                $("#txttax").val(resp.tax);
+                $("#txtqty").val();
+                $("#txtstock").val(resp.stock_quantity);
+                $("#txtamount").val();
+                
+            }
+        })
+    }
+
+
+    function Calculate() {
+        var rate = Number($("#txtrate").val());
+        var tax = Number($("#txttax").val()); 
+        var qty = Number($("#txtqty").val());
+        var total = (rate + (rate * tax) / 100) * qty;
+
+        $("#txttotal").val(total); 
+    }
+
+
+
+</script>
+<h2>NewInvoice</h2>
+<table class="table">
+    <tr>
+        <td>
+            <label>Customer Name</label>
+            <select id="ddcustomer" >
+                <option selected disabled >select customer</option>
+            </select>
+        </td>
+        <td>
+            <label>Invoice Date</label>
+            <input type="date" id="txtdate"/>  
+        </td>
+    </tr>
+</table>
+<hr/>
+<table class="table" > 
+    <tr>
+        <td>
+            <label>Item</label><br />
+            <select id="dditem">
+                <option selected disabled>Select Item</option>
+            </select>
+        </td>
+        <td>
+            <label>Rate</label><br />
+            <input type="text" id="txtrate" style="width:100px" disabled />
+        </td>
+        <td>
+            <label>Tax</label><br />
+            <input type="text" id="txttax" style="width:100px" disabled />
+        </td>
+        <td>
+            <label>Stock</label><br />
+            <input type="text" id="txtstock" style="width:100px" disabled />
+        </td>
+        <td>
+            <label>Quantity</label><br />
+            <input type="text" id="txtqty" style="width:100px" />
+        </td>
+        <td>
+            <label>Amount</label><br />
+            <input type="text" id="txttotal" style="width:100px" />
+        </td>
+        <td><br/>
+            <input type="button" id="btnadd" value="+ " />
+        </td>
+    </tr>
+</table>
+<hr/>
+<table class="table table-bordered" >
+    <thead>
+        <tr>
+            <th>Serial No</th>
+            <th>Item</th>
+            <th>Reate</th>
+            <th>Tax</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody id="tbldata" ></tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" style="text-align:right">Total=</td>
+            <b id="finaltotal" ></b>
+        </tr>
+    </tfoot>
+</table>
+<input type="button" value="Submit" id="btnsubmit" /> 
+
