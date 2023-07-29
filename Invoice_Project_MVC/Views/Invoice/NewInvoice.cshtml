@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/Invoice_Layout.cshtml";
 }
 <script>
+    var itemdata = [];
+    var item_name = "";
+    var finaltotal = 0;
     $(document).ready(function () {
         FetchCustomers();
         FetchItems();
@@ -12,6 +15,9 @@
         })
         $("#txtqty").change(function () {
             Calculate();
+        })
+        $("btnadd").click(function () {
+            AddItem();
         })
     })
     function FetchCustomers() {
@@ -48,12 +54,11 @@
             method: 'get',
             contentType: 'application/json',
             success: function (resp) {
-                 console.log(resp);
+                console.log(resp);
+                item_name = resp.item_name;
                 $("#txtrate").val(resp.rate);
                 $("#txttax").val(resp.tax);
-                $("#txtqty").val();
                 $("#txtstock").val(resp.stock_quantity);
-                $("#txtamount").val();
                 
             }
         })
@@ -61,6 +66,7 @@
 
 
     function Calculate() {
+
         var rate = Number($("#txtrate").val());
         var tax = Number($("#txttax").val()); 
         var qty = Number($("#txtqty").val());
@@ -69,7 +75,14 @@
         $("#txttotal").val(total); 
     }
 
-
+    function AddItem() {
+        var itemid = $("#dditem").val();
+        var rate = Number($("#txtrate").val());
+        var tax = Number($("#txttax").val());
+        var qty = Number($("#txtqty").val());
+        var total = Number($("#txttotal").val());
+        var st = {"invoice_id"}
+    }
 
 </script>
 <h2>NewInvoice</h2>

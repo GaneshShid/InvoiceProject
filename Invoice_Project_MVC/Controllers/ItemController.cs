@@ -45,6 +45,7 @@ namespace Invoice_Project_MVC.Controllers
                     tax = p.tax,
                     rate = p.rate,
                     stock_quantity = p.stock_quantity
+                    
                 };
                 
 
