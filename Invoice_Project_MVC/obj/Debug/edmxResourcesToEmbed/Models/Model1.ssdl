@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Invoice_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="Invoice_DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="tbl_customer">
     <Key>
       <PropertyRef Name="customer_id" />
     </Key>
     <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="invoice_id" Type="int" />
     <Property Name="customer_name" Type="varchar" MaxLength="100" />
     <Property Name="email_address" Type="varchar" MaxLength="100" />
     <Property Name="mobile_number" Type="varchar" MaxLength="100" />
@@ -16,9 +15,9 @@
       <PropertyRef Name="invoice_id" />
     </Key>
     <Property Name="invoice_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="customer_id" Type="int" />
     <Property Name="invoice_date" Type="varchar" MaxLength="100" />
     <Property Name="total_ammount" Type="float" />
+    <Property Name="customer_id" Type="int" />
   </EntityType>
   <EntityType Name="tbl_invoice_payments">
     <Key>
@@ -38,7 +37,6 @@
     <Property Name="invoice_product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="invoice_id" Type="int" />
     <Property Name="product_id" Type="int" />
-    <Property Name="quantity" Type="int" />
   </EntityType>
   <EntityType Name="tbl_products">
     <Key>
@@ -50,19 +48,7 @@
     <Property Name="tax" Type="float" />
     <Property Name="stock_quantity" Type="int" />
   </EntityType>
-  <Association Name="FK__tbl_custo__invoi__6383C8BA">
-    <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="0..1" />
-    <End Role="tbl_customer" Type="Self.tbl_customer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_invoice_details">
-        <PropertyRef Name="invoice_id" />
-      </Principal>
-      <Dependent Role="tbl_customer">
-        <PropertyRef Name="invoice_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="invo">
+  <Association Name="FK__invoice_p__invoi__5441852A">
     <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="0..1" />
     <End Role="tbl_invoice_payments" Type="Self.tbl_invoice_payments" Multiplicity="*" />
     <ReferentialConstraint>
@@ -74,7 +60,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="invoice">
+  <Association Name="FK__tbl_invoi__custo__4D94879B">
+    <End Role="tbl_customer" Type="Self.tbl_customer" Multiplicity="0..1" />
+    <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_customer">
+        <PropertyRef Name="customer_id" />
+      </Principal>
+      <Dependent Role="tbl_invoice_details">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_invoi__invoi__5070F446">
     <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="0..1" />
     <End Role="tbl_invoice_products" Type="Self.tbl_invoice_products" Multiplicity="*" />
     <ReferentialConstraint>
@@ -86,7 +84,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="product">
+  <Association Name="FK__tbl_invoi__produ__5165187F">
     <End Role="tbl_products" Type="Self.tbl_products" Multiplicity="0..1" />
     <End Role="tbl_invoice_products" Type="Self.tbl_invoice_products" Multiplicity="*" />
     <ReferentialConstraint>
@@ -98,25 +96,25 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Invoice_DBModelStoreContainer">
+  <EntityContainer Name="Invoice_DatabaseModelStoreContainer">
     <EntitySet Name="tbl_customer" EntityType="Self.tbl_customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_invoice_details" EntityType="Self.tbl_invoice_details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_invoice_payments" EntityType="Self.tbl_invoice_payments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_invoice_products" EntityType="Self.tbl_invoice_products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_products" EntityType="Self.tbl_products" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__tbl_custo__invoi__6383C8BA" Association="Self.FK__tbl_custo__invoi__6383C8BA">
-      <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
-      <End Role="tbl_customer" EntitySet="tbl_customer" />
-    </AssociationSet>
-    <AssociationSet Name="invo" Association="Self.invo">
+    <AssociationSet Name="FK__invoice_p__invoi__5441852A" Association="Self.FK__invoice_p__invoi__5441852A">
       <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
       <End Role="tbl_invoice_payments" EntitySet="tbl_invoice_payments" />
     </AssociationSet>
-    <AssociationSet Name="invoice" Association="Self.invoice">
+    <AssociationSet Name="FK__tbl_invoi__custo__4D94879B" Association="Self.FK__tbl_invoi__custo__4D94879B">
+      <End Role="tbl_customer" EntitySet="tbl_customer" />
+      <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_invoi__invoi__5070F446" Association="Self.FK__tbl_invoi__invoi__5070F446">
       <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
       <End Role="tbl_invoice_products" EntitySet="tbl_invoice_products" />
     </AssociationSet>
-    <AssociationSet Name="product" Association="Self.product">
+    <AssociationSet Name="FK__tbl_invoi__produ__5165187F" Association="Self.FK__tbl_invoi__produ__5165187F">
       <End Role="tbl_products" EntitySet="tbl_products" />
       <End Role="tbl_invoice_products" EntitySet="tbl_invoice_products" />
     </AssociationSet>

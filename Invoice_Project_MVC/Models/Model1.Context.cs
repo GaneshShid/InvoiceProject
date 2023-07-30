@@ -13,10 +13,10 @@ namespace Invoice_Project_MVC.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Invoice_DBEntities : DbContext
+    public partial class Invoice_DB : DbContext
     {
-        public Invoice_DBEntities()
-            : base("name=Invoice_DBEntities")
+        public Invoice_DB()
+            : base("name=Invoice_DB")
         {
         }
     
@@ -27,8 +27,8 @@ namespace Invoice_Project_MVC.Models
     
         public virtual DbSet<tbl_customer> tbl_customer { get; set; }
         public virtual DbSet<tbl_invoice_details> tbl_invoice_details { get; set; }
-        public virtual DbSet<tbl_invoice_payments> tbl_invoice_payments { get; set; }
         public virtual DbSet<tbl_invoice_products> tbl_invoice_products { get; set; }
         public virtual DbSet<tbl_products> tbl_products { get; set; }
+        public virtual DbSet<tbl_invoice_payments> tbl_invoice_payments { get; set; }
     }
 }

@@ -12,13 +12,18 @@
         FetchItems();
         $("#dditem").change(function () {
             FetchItemData();
+            Calculate();
         })
         $("#txtqty").change(function () {
             Calculate();
         })
-        $("btnadd").click(function () {
+        $("#btnadd").click(function () {
             AddItem();
         })
+        $("#btnsubmit").click(function () {
+            SubmitInvoice();
+        })
+
     })
     function FetchCustomers() {
         $.ajax({
@@ -55,23 +60,23 @@
             contentType: 'application/json',
             success: function (resp) {
                 console.log(resp);
-                item_name = resp.item_name;
+                item_name = resp.product_name;
                 $("#txtrate").val(resp.rate);
                 $("#txttax").val(resp.tax);
                 $("#txtstock").val(resp.stock_quantity);
-                
+                Calculate();
             }
         })
     }
 
 
     function Calculate() {
-
+        
         var rate = Number($("#txtrate").val());
         var tax = Number($("#txttax").val()); 
-        var qty = Number($("#txtqty").val());
+        var qty = Number($("#txtqty").val())
         var total = (rate + (rate * tax) / 100) * qty;
-
+        
         $("#txttotal").val(total); 
     }
 
@@ -81,9 +86,39 @@
         var tax = Number($("#txttax").val());
         var qty = Number($("#txtqty").val());
         var total = Number($("#txttotal").val());
-        var st = {"invoice_id"}
+        var st = { "product_id": itemid, "product_name": item_name, "rate": rate, "tax": tax, "stock_quantity": qty, "total": total }
+        
+        itemdata.push(st);
+        FillTable();
     }
 
+    function FillTable() {
+        $("#tbldata").empty();
+        finaltotal = 0;
+        $.each(itemdata, function (i, d) {
+            finaltotal = Number(finaltotal) + Number(d.total)
+            $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.product_name+ "</td><td>" + d.rate + "</td><td>" + d.tax + "</td><td>" + d.stock_quantity + "</td><td>" + d.total + "</td></tr>")
+        })
+        $("#finaltotal").html(finaltotal.toFixed(2));
+
+    }
+
+
+    function SubmitInvoice() {
+        var cid = $("#ddcustomer").val();   
+        var dt = $("#txtdate").val();
+        var st = { "customer_id": cid, "invoice_date": dt, "total_ammount": finaltotal, "tbl_invoice_products": itemdata };
+        $.ajax({
+            url: '/Invoice/GenerateInvoice',
+            method: 'post',
+            data: JSON.stringify(st),
+            contentType: 'application/json',
+            success: function (resp) {
+                alert(resp);
+                window.location.href="/Invoice/"
+            }
+        })
+    }
 </script>
 <h2>NewInvoice</h2>
 <table class="table">
@@ -130,7 +165,7 @@
             <input type="text" id="txttotal" style="width:100px" />
         </td>
         <td><br/>
-            <input type="button" id="btnadd" value="+ " />
+            <input type="button" id="btnadd" value="+" />
         </td>
     </tr>
 </table>
@@ -150,7 +185,7 @@
     <tfoot>
         <tr>
             <td colspan="5" style="text-align:right">Total=</td>
-            <b id="finaltotal" ></b>
+            <td><b id="finaltotal"></b></td>
         </tr>
     </tfoot>
 </table>

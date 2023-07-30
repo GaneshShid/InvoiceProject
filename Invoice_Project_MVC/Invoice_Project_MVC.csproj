@@ -132,9 +132,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Data Folder\MyClass.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\InvoiceModel.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -236,8 +238,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Invoice_Layout.cshtml" />
-    <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Invoice\NewInvoice.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

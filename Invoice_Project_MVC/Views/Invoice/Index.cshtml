@@ -1,9 +1,38 @@
-﻿
+﻿@model IEnumerable<Invoice_Project_MVC.Models.InvoiceModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Invoice_Layout.cshtml";
 }
 
 <h2>All Invoices</h2>
-<a href="/Invoice/newInvoice" >New Invoice</a>
-
+<a href="/Invoice/newInvoice">New Invoice</a>
+<table class="table table-secondary">
+    <thead>
+        <tr>
+            <th>Sr.No</th>
+            <th>INvoice Date</th>
+            <th>Customer Name</th>
+            <th>Total Amount</th>
+            <th>Paid Amount</th>
+            <th>Remining Amount </th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tody>
+        @{ int i = 1;}
+        @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.invoice_date</td>
+                    <td>@item.customer_name</td>
+                    <td>@item.total_amount</td>
+                    <td>@item.paid_amount</td>
+                    <td>@item.remining_amount</td>
+                    <td>@item.status</td>
+                    <td></td>
+                </tr>
+            }
+    </tody>
+</table>

@@ -8,14 +8,15 @@ namespace Invoice_Project_MVC.Controllers
 {
     public class InvoiceController : Controller
     {
-        Invoice_DBEntities db;
+        Invoice_DB db;
         public InvoiceController()
         {
-            db = new Invoice_DBEntities();
+            db = new Invoice_DB();
         }
         public ActionResult Index()
         {
-            return View();
+            List<InvoiceModel> lst = GetAllInvoices();
+            return View(lst);
         }
 
         public ActionResult NewInvoice()
@@ -30,6 +31,53 @@ namespace Invoice_Project_MVC.Controllers
             return "Invoice generated succesfully";
         }
         
+        public List<InvoiceModel> GetAllInvoices()
+        {
+            List<InvoiceModel> lst = new List<InvoiceModel>();
+            List<tbl_invoice_details> invoices = db.tbl_invoice_details.ToList();
+            foreach(tbl_invoice_details d in invoices)
+            {
+                List<tbl_invoice_payments> payments = db.tbl_invoice_payments.ToList().Where(e => e.invoice_id.Equals(d.invoice_id)).ToList();
+                float totalamount = 0, paidamount = 0, remainingamount = 0;
+                totalamount = (float)d.total_ammount;
+                foreach(tbl_invoice_payments p in payments)
+                {
+                    totalamount += (float)p.payment_ammount;
+                }
+                remainingamount = totalamount - paidamount;
+                string status = "";
+                if(paidamount==0)
+                {
+                    status = "Un paid";
+                }
+                else if(paidamount>0 && paidamount<totalamount)
+                {
+                    status = "Partial Paid";
+                }
+                else if(paidamount==totalamount)
+                {
+                    status = "Paid";
+                }
+
+                InvoiceModel m = new InvoiceModel()
+                {
+                    invoice_id = d.invoice_id,
+                    customer_id = (int)d.customer_id,
+                    customer_name=d.tbl_customer.customer_name,
+                    invoice_date=d.invoice_date,
+                    paid_amount=paidamount,
+                    remining_amount=remainingamount,
+                    total_amount=totalamount,
+                    status=status
+
+
+                };
+                lst.Add(m);
+            }
+            return lst;
+
+
+        }
 
     }
 }

@@ -1,40 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Invoice_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="Invoice_DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="tbl_customer">
     <Key>
       <PropertyRef Name="customer_id" />
     </Key>
     <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="invoice_id" Type="Int32" />
     <Property Name="customer_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="email_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="mobile_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="tbl_invoice_details" Relationship="Self.FK__tbl_custo__invoi__6383C8BA" FromRole="tbl_customer" ToRole="tbl_invoice_details" />
+    <NavigationProperty Name="tbl_invoice_details" Relationship="Self.FK__tbl_invoi__custo__4D94879B" FromRole="tbl_customer" ToRole="tbl_invoice_details" />
   </EntityType>
   <EntityType Name="tbl_invoice_details">
     <Key>
       <PropertyRef Name="invoice_id" />
     </Key>
     <Property Name="invoice_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="customer_id" Type="Int32" />
     <Property Name="invoice_date" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="total_ammount" Type="Double" />
-    <NavigationProperty Name="tbl_customer" Relationship="Self.FK__tbl_custo__invoi__6383C8BA" FromRole="tbl_invoice_details" ToRole="tbl_customer" />
-    <NavigationProperty Name="tbl_invoice_payments" Relationship="Self.invo" FromRole="tbl_invoice_details" ToRole="tbl_invoice_payments" />
-    <NavigationProperty Name="tbl_invoice_products" Relationship="Self.invoice" FromRole="tbl_invoice_details" ToRole="tbl_invoice_products" />
-  </EntityType>
-  <EntityType Name="tbl_invoice_payments">
-    <Key>
-      <PropertyRef Name="payment_id" />
-    </Key>
-    <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="invoice_id" Type="Int32" />
-    <Property Name="payment_date" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="payment_ammount" Type="Double" />
-    <Property Name="payment_mode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="payment_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="tbl_invoice_details" Relationship="Self.invo" FromRole="tbl_invoice_payments" ToRole="tbl_invoice_details" />
+    <Property Name="customer_id" Type="Int32" />
+    <NavigationProperty Name="tbl_customer" Relationship="Self.FK__tbl_invoi__custo__4D94879B" FromRole="tbl_invoice_details" ToRole="tbl_customer" />
+    <NavigationProperty Name="tbl_invoice_products" Relationship="Self.FK__tbl_invoi__invoi__5070F446" FromRole="tbl_invoice_details" ToRole="tbl_invoice_products" />
+    <NavigationProperty Name="tbl_invoice_payments" Relationship="Invoice_DatabaseModel.FK__invoice_p__invoi__5441852A" FromRole="tbl_invoice_details" ToRole="tbl_invoice_payments" />
   </EntityType>
   <EntityType Name="tbl_invoice_products">
     <Key>
@@ -43,9 +30,8 @@
     <Property Name="invoice_product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="invoice_id" Type="Int32" />
     <Property Name="product_id" Type="Int32" />
-    <Property Name="quantity" Type="Int32" />
-    <NavigationProperty Name="tbl_invoice_details" Relationship="Self.invoice" FromRole="tbl_invoice_products" ToRole="tbl_invoice_details" />
-    <NavigationProperty Name="tbl_products" Relationship="Self.product" FromRole="tbl_invoice_products" ToRole="tbl_products" />
+    <NavigationProperty Name="tbl_invoice_details" Relationship="Self.FK__tbl_invoi__invoi__5070F446" FromRole="tbl_invoice_products" ToRole="tbl_invoice_details" />
+    <NavigationProperty Name="tbl_products" Relationship="Self.FK__tbl_invoi__produ__5165187F" FromRole="tbl_invoice_products" ToRole="tbl_products" />
   </EntityType>
   <EntityType Name="tbl_products">
     <Key>
@@ -56,33 +42,21 @@
     <Property Name="rate" Type="Double" />
     <Property Name="tax" Type="Double" />
     <Property Name="stock_quantity" Type="Int32" />
-    <NavigationProperty Name="tbl_invoice_products" Relationship="Self.product" FromRole="tbl_products" ToRole="tbl_invoice_products" />
+    <NavigationProperty Name="tbl_invoice_products" Relationship="Self.FK__tbl_invoi__produ__5165187F" FromRole="tbl_products" ToRole="tbl_invoice_products" />
   </EntityType>
-  <Association Name="FK__tbl_custo__invoi__6383C8BA">
-    <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="0..1" />
-    <End Role="tbl_customer" Type="Self.tbl_customer" Multiplicity="*" />
+  <Association Name="FK__tbl_invoi__custo__4D94879B">
+    <End Role="tbl_customer" Type="Self.tbl_customer" Multiplicity="0..1" />
+    <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbl_invoice_details">
-        <PropertyRef Name="invoice_id" />
+      <Principal Role="tbl_customer">
+        <PropertyRef Name="customer_id" />
       </Principal>
-      <Dependent Role="tbl_customer">
-        <PropertyRef Name="invoice_id" />
+      <Dependent Role="tbl_invoice_details">
+        <PropertyRef Name="customer_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="invo">
-    <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="0..1" />
-    <End Role="tbl_invoice_payments" Type="Self.tbl_invoice_payments" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_invoice_details">
-        <PropertyRef Name="invoice_id" />
-      </Principal>
-      <Dependent Role="tbl_invoice_payments">
-        <PropertyRef Name="invoice_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="invoice">
+  <Association Name="FK__tbl_invoi__invoi__5070F446">
     <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="0..1" />
     <End Role="tbl_invoice_products" Type="Self.tbl_invoice_products" Multiplicity="*" />
     <ReferentialConstraint>
@@ -94,7 +68,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="product">
+  <Association Name="FK__tbl_invoi__produ__5165187F">
     <End Role="tbl_products" Type="Self.tbl_products" Multiplicity="0..1" />
     <End Role="tbl_invoice_products" Type="Self.tbl_invoice_products" Multiplicity="*" />
     <ReferentialConstraint>
@@ -106,27 +80,51 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Invoice_DBEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Invoice_DB" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="tbl_customer" EntityType="Self.tbl_customer" />
     <EntitySet Name="tbl_invoice_details" EntityType="Self.tbl_invoice_details" />
-    <EntitySet Name="tbl_invoice_payments" EntityType="Self.tbl_invoice_payments" />
     <EntitySet Name="tbl_invoice_products" EntityType="Self.tbl_invoice_products" />
     <EntitySet Name="tbl_products" EntityType="Self.tbl_products" />
-    <AssociationSet Name="FK__tbl_custo__invoi__6383C8BA" Association="Self.FK__tbl_custo__invoi__6383C8BA">
-      <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
+    <AssociationSet Name="FK__tbl_invoi__custo__4D94879B" Association="Self.FK__tbl_invoi__custo__4D94879B">
       <End Role="tbl_customer" EntitySet="tbl_customer" />
-    </AssociationSet>
-    <AssociationSet Name="invo" Association="Self.invo">
       <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
-      <End Role="tbl_invoice_payments" EntitySet="tbl_invoice_payments" />
     </AssociationSet>
-    <AssociationSet Name="invoice" Association="Self.invoice">
+    <AssociationSet Name="FK__tbl_invoi__invoi__5070F446" Association="Self.FK__tbl_invoi__invoi__5070F446">
       <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
       <End Role="tbl_invoice_products" EntitySet="tbl_invoice_products" />
     </AssociationSet>
-    <AssociationSet Name="product" Association="Self.product">
+    <AssociationSet Name="FK__tbl_invoi__produ__5165187F" Association="Self.FK__tbl_invoi__produ__5165187F">
       <End Role="tbl_products" EntitySet="tbl_products" />
       <End Role="tbl_invoice_products" EntitySet="tbl_invoice_products" />
     </AssociationSet>
+    <EntitySet Name="tbl_invoice_payments" EntityType="Invoice_DatabaseModel.tbl_invoice_payments" />
+    <AssociationSet Name="FK__invoice_p__invoi__5441852A" Association="Invoice_DatabaseModel.FK__invoice_p__invoi__5441852A">
+      <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
+      <End Role="tbl_invoice_payments" EntitySet="tbl_invoice_payments" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="tbl_invoice_payments">
+    <Key>
+      <PropertyRef Name="payment_id" />
+    </Key>
+    <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="invoice_id" Type="Int32" />
+    <Property Name="payment_date" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="payment_ammount" Type="Double" />
+    <Property Name="payment_mode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="payment_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_invoice_details" Relationship="Invoice_DatabaseModel.FK__invoice_p__invoi__5441852A" FromRole="tbl_invoice_payments" ToRole="tbl_invoice_details" />
+  </EntityType>
+  <Association Name="FK__invoice_p__invoi__5441852A">
+    <End Type="Invoice_DatabaseModel.tbl_invoice_details" Role="tbl_invoice_details" Multiplicity="0..1" />
+    <End Type="Invoice_DatabaseModel.tbl_invoice_payments" Role="tbl_invoice_payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_invoice_details">
+        <PropertyRef Name="invoice_id" />
+      </Principal>
+      <Dependent Role="tbl_invoice_payments">
+        <PropertyRef Name="invoice_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -1,3 +1,5 @@
+F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\obj\Debug\Invoice_Project_MVC.csproj.AssemblyReference.cache
+F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\obj\Debug\Invoice_Project_MVC.csproj.CoreCompileInputs.cache
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\bin\Invoice_Project_MVC.dll.config
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\bin\Invoice_Project_MVC.dll
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\bin\Invoice_Project_MVC.pdb
@@ -76,8 +78,6 @@ F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\bin\Syste
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\bin\Newtonsoft.Json.xml
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\bin\Antlr3.Runtime.pdb
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\obj\Debug\Invoice_Project_MVC.csproj.AssemblyReference.cache
-F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\obj\Debug\Invoice_Project_MVC.csproj.CoreCompileInputs.cache
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\obj\Debug\Invoice_Project_MVC.csproj.CopyComplete
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\obj\Debug\Invoice_Project_MVC.dll
 F:\Dot Net Projects\AA new mvc\Invoice_Project_MVC\Invoice_Project_MVC\obj\Debug\Invoice_Project_MVC.pdb

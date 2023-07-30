@@ -8,10 +8,10 @@ namespace Invoice_Project_MVC.Controllers
 {
     public class ItemController : Controller
     {
-        Invoice_DBEntities db;
+        Invoice_DB db;
         public ItemController()
         {
-            db = new Invoice_DBEntities();
+            db = new Invoice_DB();
         }
 
         public JsonResult GetItems()

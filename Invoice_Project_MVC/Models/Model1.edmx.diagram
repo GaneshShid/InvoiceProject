@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="625c9c55e508462aaa8e3f29fcc73a4b" Name="Diagram1">
-        <EntityTypeShape EntityType="Invoice_DBModel.tbl_customer" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Invoice_DBModel.tbl_invoice_details" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Invoice_DBModel.tbl_invoice_payments" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Invoice_DBModel.tbl_invoice_products" Width="1.5" PointX="8.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Invoice_DBModel.tbl_products" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="Invoice_DBModel.FK__tbl_custo__invoi__6383C8BA" ManuallyRouted="false" />
-        <AssociationConnector Association="Invoice_DBModel.invo" ManuallyRouted="false" />
-        <AssociationConnector Association="Invoice_DBModel.invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="Invoice_DBModel.product" ManuallyRouted="false" />
+      <Diagram DiagramId="d52d8613d2e043cdb4120d9c5ff1761a" Name="Diagram1">
+        <EntityTypeShape EntityType="Invoice_DatabaseModel.tbl_customer" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Invoice_DatabaseModel.tbl_invoice_details" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Invoice_DatabaseModel.tbl_invoice_products" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Invoice_DatabaseModel.tbl_products" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="Invoice_DatabaseModel.FK__tbl_invoi__custo__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="Invoice_DatabaseModel.FK__tbl_invoi__invoi__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="Invoice_DatabaseModel.FK__tbl_invoi__produ__5165187F" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Invoice_DatabaseModel.tbl_invoice_payments" Width="1.5" PointX="5.25" PointY="3.5" />
+        <AssociationConnector Association="Invoice_DatabaseModel.FK__invoice_p__invoi__5441852A" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

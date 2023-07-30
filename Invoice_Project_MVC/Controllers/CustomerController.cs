@@ -8,10 +8,10 @@ namespace Invoice_Project_MVC.Controllers
 {
     public class CustomerController : Controller
     {
-        Invoice_DBEntities db;
+        Invoice_DB db;
         public CustomerController()
         {
-            db = new Invoice_DBEntities();
+            db = new Invoice_DB();
         }
         
         public JsonResult GetCustomers()

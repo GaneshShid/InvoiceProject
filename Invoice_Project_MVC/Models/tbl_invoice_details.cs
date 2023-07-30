@@ -17,21 +17,19 @@ namespace Invoice_Project_MVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_invoice_details()
         {
-            this.tbl_customer = new HashSet<tbl_customer>();
-            this.tbl_invoice_payments = new HashSet<tbl_invoice_payments>();
             this.tbl_invoice_products = new HashSet<tbl_invoice_products>();
+            this.tbl_invoice_payments = new HashSet<tbl_invoice_payments>();
         }
     
         public int invoice_id { get; set; }
-        public Nullable<int> customer_id { get; set; }
         public string invoice_date { get; set; }
         public Nullable<double> total_ammount { get; set; }
+        public Nullable<int> customer_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_customer> tbl_customer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_invoice_payments> tbl_invoice_payments { get; set; }
+        public virtual tbl_customer tbl_customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_invoice_products> tbl_invoice_products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_invoice_payments> tbl_invoice_payments { get; set; }
     }
 }
