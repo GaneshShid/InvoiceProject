@@ -1,0 +1,59 @@
+﻿@model Invoice_Project_MVC.Models.tbl_invoice_payments
+@{
+    ViewBag.Title = "Pay";
+    Layout = "~/Views/Shared/Invoice_Layout.cshtml";
+}
+
+<h2>Pay Invoice</h2>
+@using (Html.BeginForm())
+{
+    
+    <table>
+        <tr>
+            <td>Invoice id</td>
+            <td>@Html.TextBoxFor(e => e.invoice_id)</td>
+        </tr>
+        <tr>
+            <td>Invoice date</td>
+            <td><input type="text" disabled value="@ViewBag.invoice.invoice_date" /></td>
+        </tr>
+        <tr>
+            <td>Customer Name</td>
+            <td><input type="text" disabled value="@ViewBag.invoice.customer_name" /></td>
+        </tr>
+        <tr>
+            <td>Total Amount</td>
+            <td><input type="text" disabled value="@ViewBag.invoice.total_amount" /></td>
+        </tr>
+        <tr>
+            <td>Paid Amount</td>
+            <td><input type="text" disabled value="@ViewBag.invoice.paid_amount" /></td>
+        </tr>
+        <tr>
+            <td>Remining Amount</td>
+            <td><input type="text" disabled value="@ViewBag.invoice.remining_amount" /></td>
+        </tr>
+        <tr>
+            <td>payment Date</td>
+            <td>@Html.TextBoxFor(e => e.payment_date, new { @type = "date" })</td>
+        </tr>
+        <tr>
+            <td>Payment Amount</td>
+            <td>@Html.TextBoxFor(e => e.payment_ammount)</td>
+        </tr>
+        <tr>
+            <td>Payment Mode</td>
+            <td>@Html.TextBoxFor(e => e.payment_mode)</td>
+        </tr>
+        <tr>
+            <td>Payment Description</td>
+            <td>@Html.TextAreaFor(e => e.payment_description)</td>
+        <tr>
+           <td colspan="2">
+               <input type="submit" value="submit" />
+           </td>
+        </tr>
+
+    </table>               
+ }
+

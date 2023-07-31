@@ -31,7 +31,16 @@
                     <td>@item.paid_amount</td>
                     <td>@item.remining_amount</td>
                     <td>@item.status</td>
-                    <td></td>
+                    <td>
+                        @if (item.status == "Paid")
+                        {
+                            @Html.ActionLink("View Invoice", "ViewInvoice", new { @id = item.invoice_id }) 
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Pay Now", "Pay", new { @id = item.invoice_id })
+                        }
+                    </td>
                 </tr>
             }
     </tody>

@@ -30,7 +30,31 @@ namespace Invoice_Project_MVC.Controllers
             db.SaveChanges();
             return "Invoice generated succesfully";
         }
-        
+
+
+        public ActionResult Pay(int id)
+        {
+            InvoiceModel m = GetAllInvoices().FirstOrDefault(e => e.invoice_id.Equals(id));
+            ViewBag.invoice = m;
+            tbl_invoice_payments p = new tbl_invoice_payments() { invoice_id = m.invoice_id };
+            return View(p);
+        }
+        [HttpPost]
+        public ActionResult Pay(tbl_invoice_payments p)
+        {
+            db.tbl_invoice_payments.Add(p);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult ViewInvoice(int id)
+        {
+            tbl_invoice_details d = db.tbl_invoice_details.Find(id);
+            return View(d);
+        }
+
+
         public List<InvoiceModel> GetAllInvoices()
         {
             List<InvoiceModel> lst = new List<InvoiceModel>();
@@ -42,7 +66,7 @@ namespace Invoice_Project_MVC.Controllers
                 totalamount = (float)d.total_ammount;
                 foreach(tbl_invoice_payments p in payments)
                 {
-                    totalamount += (float)p.payment_ammount;
+                    paidamount += (float)p.payment_ammount;
                 }
                 remainingamount = totalamount - paidamount;
                 string status = "";
