@@ -17,6 +17,7 @@ namespace Invoice_Project_MVC.Models
         public int invoice_product_id { get; set; }
         public Nullable<int> invoice_id { get; set; }
         public Nullable<int> product_id { get; set; }
+        public Nullable<int> purchase_quantity { get; set; }
     
         public virtual tbl_invoice_details tbl_invoice_details { get; set; }
         public virtual tbl_products tbl_products { get; set; }

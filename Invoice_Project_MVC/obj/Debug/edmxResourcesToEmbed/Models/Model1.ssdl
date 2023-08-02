@@ -37,6 +37,7 @@
     <Property Name="invoice_product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="invoice_id" Type="int" />
     <Property Name="product_id" Type="int" />
+    <Property Name="purchase_quantity" Type="int" />
   </EntityType>
   <EntityType Name="tbl_products">
     <Key>

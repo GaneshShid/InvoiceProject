@@ -85,6 +85,7 @@ namespace Invoice_Project_MVC.Controllers
 
                 InvoiceModel m = new InvoiceModel()
                 {
+                  
                     invoice_id = d.invoice_id,
                     customer_id = (int)d.customer_id,
                     customer_name=d.tbl_customer.customer_name,

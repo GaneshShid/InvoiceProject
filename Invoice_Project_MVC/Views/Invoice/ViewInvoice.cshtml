@@ -19,3 +19,65 @@
         </tr>
     </tbody>
 </table>
+<hr/>
+<table class="table table-bordered">
+    
+    <thead>
+        <tr>
+            <th>Sr.No</th>
+            <th>Item</th>
+            <th>Rate</th>
+            <th>Tax</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int i = 1;}
+        @foreach(var item in Model.tbl_invoice_products)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.tbl_products.product_name</td>
+                    <td>@item.tbl_products.rate</td>
+                    <td>@item.tbl_products.tax</td>
+                    <td>@item.purchase_quantity</td>
+                    <td>
+                        @{ 
+                                float rate = (float)item.tbl_products.rate;
+                                float tax =(float) item.tbl_products.tax;
+                            
+                                float total = (float)(rate + (rate * tax /100))* (float) item.purchase_quantity;
+                            }
+                        @total
+                    </td>
+
+
+                </tr>
+            i++;
+        }
+    </tbody>
+
+
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

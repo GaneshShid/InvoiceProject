@@ -83,10 +83,10 @@
     function AddItem() {
         var itemid = $("#dditem").val();
         var rate = Number($("#txtrate").val());
-        var tax = Number($("#txttax").val());
+        var tax = Number($("#txttax").val());   
         var qty = Number($("#txtqty").val());
         var total = Number($("#txttotal").val());
-        var st = { "product_id": itemid, "product_name": item_name, "rate": rate, "tax": tax, "stock_quantity": qty, "total": total }
+        var st = { "product_id": itemid, "product_name": item_name, "rate": rate, "tax": tax, "purchase_quantity": qty, "total": total }
         
         itemdata.push(st);
         FillTable();
@@ -97,7 +97,7 @@
         finaltotal = 0;
         $.each(itemdata, function (i, d) {
             finaltotal = Number(finaltotal) + Number(d.total)
-            $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.product_name+ "</td><td>" + d.rate + "</td><td>" + d.tax + "</td><td>" + d.stock_quantity + "</td><td>" + d.total + "</td></tr>")
+            $("#tbldata").append("<tr><td>" + (i + 1) + "</td><td>" + d.product_name+ "</td><td>" + d.rate + "</td><td>" + d.tax + "</td><td>" + d.purchase_quantity + "</td><td>" + d.total + "</td></tr>")
         })
         $("#finaltotal").html(finaltotal.toFixed(2));
 

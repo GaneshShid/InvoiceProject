@@ -22,15 +22,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_invoice_products">
-      <EntityTypeMapping TypeName="Invoice_DatabaseModel.tbl_invoice_products">
-        <MappingFragment StoreEntitySet="tbl_invoice_products">
-          <ScalarProperty Name="invoice_product_id" ColumnName="invoice_product_id" />
-          <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-          <ScalarProperty Name="product_id" ColumnName="product_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_products">
       <EntityTypeMapping TypeName="Invoice_DatabaseModel.tbl_products">
         <MappingFragment StoreEntitySet="tbl_products">
@@ -51,6 +42,16 @@
           <ScalarProperty Name="payment_date" ColumnName="payment_date" />
           <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
           <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_invoice_products">
+      <EntityTypeMapping TypeName="Invoice_DatabaseModel.tbl_invoice_products">
+        <MappingFragment StoreEntitySet="tbl_invoice_products">
+          <ScalarProperty Name="purchase_quantity" ColumnName="purchase_quantity" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+          <ScalarProperty Name="invoice_product_id" ColumnName="invoice_product_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

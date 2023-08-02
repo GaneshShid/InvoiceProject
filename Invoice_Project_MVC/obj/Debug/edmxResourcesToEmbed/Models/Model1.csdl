@@ -20,18 +20,8 @@
     <Property Name="total_ammount" Type="Double" />
     <Property Name="customer_id" Type="Int32" />
     <NavigationProperty Name="tbl_customer" Relationship="Self.FK__tbl_invoi__custo__4D94879B" FromRole="tbl_invoice_details" ToRole="tbl_customer" />
-    <NavigationProperty Name="tbl_invoice_products" Relationship="Self.FK__tbl_invoi__invoi__5070F446" FromRole="tbl_invoice_details" ToRole="tbl_invoice_products" />
     <NavigationProperty Name="tbl_invoice_payments" Relationship="Invoice_DatabaseModel.FK__invoice_p__invoi__5441852A" FromRole="tbl_invoice_details" ToRole="tbl_invoice_payments" />
-  </EntityType>
-  <EntityType Name="tbl_invoice_products">
-    <Key>
-      <PropertyRef Name="invoice_product_id" />
-    </Key>
-    <Property Name="invoice_product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="invoice_id" Type="Int32" />
-    <Property Name="product_id" Type="Int32" />
-    <NavigationProperty Name="tbl_invoice_details" Relationship="Self.FK__tbl_invoi__invoi__5070F446" FromRole="tbl_invoice_products" ToRole="tbl_invoice_details" />
-    <NavigationProperty Name="tbl_products" Relationship="Self.FK__tbl_invoi__produ__5165187F" FromRole="tbl_invoice_products" ToRole="tbl_products" />
+    <NavigationProperty Name="tbl_invoice_products" Relationship="Invoice_DatabaseModel.FK__tbl_invoi__invoi__5070F446" FromRole="tbl_invoice_details" ToRole="tbl_invoice_products" />
   </EntityType>
   <EntityType Name="tbl_products">
     <Key>
@@ -42,7 +32,7 @@
     <Property Name="rate" Type="Double" />
     <Property Name="tax" Type="Double" />
     <Property Name="stock_quantity" Type="Int32" />
-    <NavigationProperty Name="tbl_invoice_products" Relationship="Self.FK__tbl_invoi__produ__5165187F" FromRole="tbl_products" ToRole="tbl_invoice_products" />
+    <NavigationProperty Name="tbl_invoice_products" Relationship="Invoice_DatabaseModel.FK__tbl_invoi__produ__5165187F" FromRole="tbl_products" ToRole="tbl_invoice_products" />
   </EntityType>
   <Association Name="FK__tbl_invoi__custo__4D94879B">
     <End Role="tbl_customer" Type="Self.tbl_customer" Multiplicity="0..1" />
@@ -56,51 +46,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbl_invoi__invoi__5070F446">
-    <End Role="tbl_invoice_details" Type="Self.tbl_invoice_details" Multiplicity="0..1" />
-    <End Role="tbl_invoice_products" Type="Self.tbl_invoice_products" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_invoice_details">
-        <PropertyRef Name="invoice_id" />
-      </Principal>
-      <Dependent Role="tbl_invoice_products">
-        <PropertyRef Name="invoice_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__tbl_invoi__produ__5165187F">
-    <End Role="tbl_products" Type="Self.tbl_products" Multiplicity="0..1" />
-    <End Role="tbl_invoice_products" Type="Self.tbl_invoice_products" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_products">
-        <PropertyRef Name="product_id" />
-      </Principal>
-      <Dependent Role="tbl_invoice_products">
-        <PropertyRef Name="product_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="Invoice_DB" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="tbl_customer" EntityType="Self.tbl_customer" />
     <EntitySet Name="tbl_invoice_details" EntityType="Self.tbl_invoice_details" />
-    <EntitySet Name="tbl_invoice_products" EntityType="Self.tbl_invoice_products" />
     <EntitySet Name="tbl_products" EntityType="Self.tbl_products" />
     <AssociationSet Name="FK__tbl_invoi__custo__4D94879B" Association="Self.FK__tbl_invoi__custo__4D94879B">
       <End Role="tbl_customer" EntitySet="tbl_customer" />
       <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbl_invoi__invoi__5070F446" Association="Self.FK__tbl_invoi__invoi__5070F446">
-      <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
-      <End Role="tbl_invoice_products" EntitySet="tbl_invoice_products" />
-    </AssociationSet>
-    <AssociationSet Name="FK__tbl_invoi__produ__5165187F" Association="Self.FK__tbl_invoi__produ__5165187F">
-      <End Role="tbl_products" EntitySet="tbl_products" />
-      <End Role="tbl_invoice_products" EntitySet="tbl_invoice_products" />
-    </AssociationSet>
     <EntitySet Name="tbl_invoice_payments" EntityType="Invoice_DatabaseModel.tbl_invoice_payments" />
     <AssociationSet Name="FK__invoice_p__invoi__5441852A" Association="Invoice_DatabaseModel.FK__invoice_p__invoi__5441852A">
       <End Role="tbl_invoice_details" EntitySet="tbl_invoice_details" />
       <End Role="tbl_invoice_payments" EntitySet="tbl_invoice_payments" />
+    </AssociationSet>
+    <EntitySet Name="tbl_invoice_products" EntityType="Invoice_DatabaseModel.tbl_invoice_products" />
+    <AssociationSet Name="FK__tbl_invoi__invoi__5070F446" Association="Invoice_DatabaseModel.FK__tbl_invoi__invoi__5070F446">
+      <End EntitySet="tbl_invoice_details" Role="tbl_invoice_details" />
+      <End EntitySet="tbl_invoice_products" Role="tbl_invoice_products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_invoi__produ__5165187F" Association="Invoice_DatabaseModel.FK__tbl_invoi__produ__5165187F">
+      <End EntitySet="tbl_products" Role="tbl_products" />
+      <End EntitySet="tbl_invoice_products" Role="tbl_invoice_products" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="tbl_invoice_payments">
@@ -124,6 +90,41 @@
       </Principal>
       <Dependent Role="tbl_invoice_payments">
         <PropertyRef Name="invoice_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tbl_invoice_products">
+    <Key>
+      <PropertyRef Name="invoice_product_id" />
+    </Key>
+    <Property Name="invoice_product_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="invoice_id" Type="Int32" />
+    <Property Name="product_id" Type="Int32" />
+    <NavigationProperty Name="tbl_invoice_details" Relationship="Invoice_DatabaseModel.FK__tbl_invoi__invoi__5070F446" FromRole="tbl_invoice_products" ToRole="tbl_invoice_details" />
+    <NavigationProperty Name="tbl_products" Relationship="Invoice_DatabaseModel.FK__tbl_invoi__produ__5165187F" FromRole="tbl_invoice_products" ToRole="tbl_products" />
+    <Property Name="purchase_quantity" Type="Int32" />
+  </EntityType>
+  <Association Name="FK__tbl_invoi__invoi__5070F446">
+    <End Type="Invoice_DatabaseModel.tbl_invoice_details" Multiplicity="0..1" Role="tbl_invoice_details" />
+    <End Type="Invoice_DatabaseModel.tbl_invoice_products" Multiplicity="*" Role="tbl_invoice_products" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_invoice_details">
+        <PropertyRef Name="invoice_id" />
+      </Principal>
+      <Dependent Role="tbl_invoice_products">
+        <PropertyRef Name="invoice_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_invoi__produ__5165187F">
+    <End Type="Invoice_DatabaseModel.tbl_products" Multiplicity="0..1" Role="tbl_products" />
+    <End Type="Invoice_DatabaseModel.tbl_invoice_products" Multiplicity="*" Role="tbl_invoice_products" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_products">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="tbl_invoice_products">
+        <PropertyRef Name="product_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
