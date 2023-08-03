@@ -15,8 +15,17 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align:right"><p><h4>Made By Ganesh Shid </h4></p></td>
+            <td style="text-align:center"><p><h4>Made By Ganesh Shid </h4></p></td>
         </tr>
+        <tr>
+            <td>
+                <b>Customer Name: </b><span>@Model.tbl_customer.customer_name</span><br />
+                <b>Mobile Number: </b> <span>@Model.tbl_customer.mobile_number</span><br />
+                <b>Email Address: </b><span>@Model.tbl_customer.email_address</span><br />
+                <b>City: </b><span>@Model.tbl_customer.city</span>
+            </td>
+        </tr>
+
     </tbody>
 </table>
 <hr/>
@@ -33,7 +42,9 @@
         </tr>
     </thead>
     <tbody>
-        @{ int i = 1;}
+        @{ int i = 1;
+            float finaltotal = 0;
+         }
         @foreach(var item in Model.tbl_invoice_products)
             {
                 <tr>
@@ -44,10 +55,11 @@
                     <td>@item.purchase_quantity</td>
                     <td>
                         @{ 
-                                float rate = (float)item.tbl_products.rate;
-                                float tax =(float) item.tbl_products.tax;
-                            
-                                float total = (float)(rate + (rate * tax /100))* (float) item.purchase_quantity;
+                            float rate = (float)item.tbl_products.rate;
+                            float tax =(float) item.tbl_products.tax;
+
+                            float total = (float)(rate + (rate * tax /100))* (float) item.purchase_quantity;
+                            finaltotal += total;
                             }
                         @total
                     </td>
@@ -57,9 +69,35 @@
             i++;
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" style="text-align:right"><b>Total=</b></td>
+            <td>@finaltotal</td>
+        </tr>
+    </tfoot>
+</table>
 
-
-
+<h4 style="text-align:center" >Payment Details</h4>
+<table class="table table-bordered" >
+    <thead>
+        <tr>
+            <th>Payment Date</th>
+            <th>Payment Amount</th>
+            <th>Payment Mode</th>
+            <th>Payment Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.tbl_invoice_payments)
+            {
+                <tr>
+                    <td>@item.payment_date</td>
+                    <td>@item.payment_ammount</td>
+                    <td>@item.payment_mode</td>
+                    <td>@item.payment_description</td>
+                </tr>
+            }
+    </tbody>
 </table>
 
 
